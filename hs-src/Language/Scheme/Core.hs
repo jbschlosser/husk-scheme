@@ -1472,7 +1472,7 @@ addToCallHistory f history
 --
 hashTblRef :: [LispVal] -> IOThrowsError LispVal
 hashTblRef [_, (HashTable ht), key] = do
-  case Data.Map.lookup key ht of
+  case Data.Map.lookup (derefPtr key) ht of
     Just val -> return val
     Nothing -> throwError $ BadSpecialForm "Hash table does not contain key" key
 hashTblRef [cont, (HashTable ht), key, thunk] = do
